@@ -9,10 +9,10 @@
             "value": "B1"
         },
         "pAppServiceplan": {
-            "value": "azbicep-dev-eus-asp0241"
+            "value": "azbicep-dev-eus-asp01"
         },
         "pWebAppName": {
-            "value": "azbicep-dev-eus-webapp0241"
+            "value": "azbicep-dev-eus-webapp01"
         }
     }
 }
