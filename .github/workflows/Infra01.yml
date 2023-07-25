@@ -39,9 +39,9 @@ jobs:
       name: Deploy to Dev 
     # The type of runner that the job will run on
       runs-on: ubuntu-latest
+      if: github.event_name == 'pull_request'
       needs: [build]
       environment: development
-
     # Steps represent a sequence of tasks that will be executed as part of the job
       steps:
         # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -56,6 +56,29 @@ jobs:
             # az deployment group create -g biceprg02 --template-file ./azwebapp01.bicep --parameters webAppName=bicepwebappp-03    
             # az deployment group create -g az-bicep-dev-eus-rg --template-file ./AppServicePlan.bicep
             az deployment group create -g azbicep_dev_eus_rg1 -f ./Main.bicep -p ./main.dev.parameters.json
+#####################################################
+DeployStaging:
+  name: Deploy to Staging 
+  if: github.event.ref == 'refs/heads/main'
+  needs: [Build]
+  runs-on: ubuntu-latest
+  environment: 
+    name: Staging
+    url: 'http://test.myapp.com'
+  steps:
+    - name: Deploy
+      run: echo I am deploying! 
+          
+DeployProd:
+  name: Deploy to Production 
+  needs: [DeployStaging]
+  runs-on: ubuntu-latest
+  environment: 
+    name: Production
+    url: 'http://www.myapp.com'
+  steps:
+    - name: Deploy
+      run: echo I am deploying!   
             
 ###############################
 
